@@ -25,7 +25,7 @@ public class AddController {
         int sum = addService.add(n1!=null ? n1 : 0 , n2);
         System.out.println(sum);
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("add");
+        mv.setViewName("scrum-board");
         mv.addObject("sum", sum);
         return mv;
     }

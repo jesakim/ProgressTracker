@@ -2,9 +2,19 @@ package com.progresstracker.models;
 
 import com.progresstracker.enums.Priorities;
 import com.progresstracker.enums.Statuses;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
+
+
+//@Entity
+@Table(name = "tasks")
 public class Task {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
     private String title;
     private String description;
@@ -12,6 +22,13 @@ public class Task {
     private Priorities priority;
     private String dueDate;
     private User assignedTo;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+
 
     public Task() {
 
@@ -25,6 +42,14 @@ public class Task {
         this.priority = priority;
         this.dueDate = dueDate;
         this.assignedTo = assignedTo;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     public long getId() {
