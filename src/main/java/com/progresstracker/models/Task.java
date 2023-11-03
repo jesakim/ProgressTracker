@@ -9,18 +9,22 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 
-//@Entity
+@Entity
 @Table(name = "tasks")
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     private String description;
+    @Enumerated(EnumType.STRING)
     private Statuses status;
+    @Enumerated(EnumType.STRING)
     private Priorities priority;
-    private String dueDate;
+    private LocalDateTime dueDate;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
     private User assignedTo;
 
     @CreationTimestamp
@@ -34,7 +38,7 @@ public class Task {
 
     }
 
-    public Task(long id, String title, String description, Statuses status, Priorities priority, String dueDate, User assignedTo) {
+    public Task(long id, String title, String description, Statuses status, Priorities priority, LocalDateTime dueDate, User assignedTo) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -72,7 +76,7 @@ public class Task {
         return priority;
     }
 
-    public String getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
 
@@ -105,7 +109,7 @@ public class Task {
         this.priority = priority;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 

@@ -3,6 +3,8 @@ package com.progresstracker.models;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -13,12 +15,14 @@ public class User {
     private String email;
     private String password;
 
+    @OneToMany(mappedBy="assignedTo",fetch = FetchType.LAZY)
+    private Set<Task> tasks;
+
     public User() {
 
     }
 
-    public User(long id, String name, String email, String password) {
-        this.id = id;
+    public User(String name, String email, String password) {
         this.name= name;
         this.email = email;
         this.password = password;
